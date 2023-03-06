@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "995379461043",
+    "project_id": "spring-fb-demo-4b362",
+    "storage_bucket": "spring-fb-demo-4b362.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995379461043:android:fede6752ed37f21d5e69c6",
+        "android_client_info": {
+          "package_name": "com.example.tiffin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "995379461043-4u758tma9kekv28hj9kl7ivbi1j6ln07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8WuJAr0HBtXCITQPdfdujqf6j9cLQcVw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "995379461043-4u758tma9kekv28hj9kl7ivbi1j6ln07.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
