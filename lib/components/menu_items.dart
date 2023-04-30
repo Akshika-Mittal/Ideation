@@ -39,10 +39,16 @@ List<Map> drawerItems=[
     'icon' :const IconData(0xef28, fontFamily: 'MaterialIcons'),
     'title': 'Cancellation ',
     'route': 7,
-  },{
+  },
+  {
+    'icon' :const IconData(0xf0555, fontFamily: 'MaterialIcons'),
+    'title': 'FAQ ',
+    'route': 8,
+  },
+  {
     'icon' :const IconData(0xeaac, fontFamily: 'MaterialIcons'),
     'title': 'Logout',
-    'route': 8,
+    'route': 9,
   },
 
 ];

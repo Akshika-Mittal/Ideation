@@ -3,6 +3,7 @@
    <application
         android:label="tiffin"
         android:name="${applicationName}"
+       android:networkSecurityConfig="@xml/network_security_config"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -30,5 +31,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyCYlNhDOjtkoewPN95YjAUmqEojcuOp7_Q"/>
     </application>
 </manifest>

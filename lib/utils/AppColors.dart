@@ -14,15 +14,24 @@ import 'dimensions.dart';
    const kDrawerBgColor = Color(0xFFE6E6E6);
 
    //text color
-    const kTextColor = Color(0xFF8A8787);
-
+    const kTextColor = Color(0xFF808080);
+    const KDarkGrey = Color(0xFF808080);
   //gradient color
   const kPrimaryGradientColor = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFFEB4749),
-      Color(0xFF720D0E),],
+    colors: [Color(0xFF8639b1),
+      Color(0xFFEB2133),
+      Color(0xFFFD9E41),
+    ],
   );
+const kBlackGradientColor = LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  colors: [Color(0xFF2D2D2D),
+    Color(0xFF2D2D2D),
+  ],
+);
 
   //screen title texts, texts also
   const kScreenHeadingColor = Color(0xFF7E8389);
@@ -34,15 +43,13 @@ import 'dimensions.dart';
   const kWhiteColor = Color(0xFFFFFFFF);
 
   //black text color
-  const kBlackColor = Color(0xFF000000);
+  const kBlackColor = Color(0xFF2D2D2D);
 
-  //divider color
-  const kDividerColor = Color(0xFF7E8389);
+  //light grey color
+  const kDividerColor = Color(0xFF808080);
+  const kLightGrey = Color(0xFFF5F5F5);
+
+
 
   //Bold = H1 font type
-  TextStyle kH1Heading = TextStyle(
-    fontFamily: 'Move',
-    fontSize: Dimensions.font26+Dimensions.font10,
-    fontWeight: FontWeight.w300,
-    color: Color(0xFF262626),
-  );
+

@@ -1,5 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:tiffin/utils/dimensions.dart';
+
+import '../utils/constants.dart';
 class OnBoardNavBtn extends StatelessWidget {
   const OnBoardNavBtn({
     Key? key,
@@ -11,14 +14,15 @@ class OnBoardNavBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      borderRadius: BorderRadius.circular((Dimensions.font12)/2),
-      splashColor: Colors.black12,
-      child: Padding(
-        padding: EdgeInsets.all(Dimensions.height4),
-        child: Text(
+    return Container(
+      alignment: Alignment.topRight,
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(6),
+        splashColor: Colors.black12,
+        child: AutoSizeText(
           name,
+          style: kH3Heading,
           //style: kBodyText1,
         ),
       ),

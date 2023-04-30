@@ -40,7 +40,7 @@ class _edit_ProfileState extends State<edit_Profile> {
     TextEditingController _mobileNumber =
     TextEditingController(text: this.mobileNumber);
     return Scaffold(
-      appBar: AppBar(),
+      //appBar: AppBar(),
       body: Container(
         height: Dimensions.screenHeight,
         width: Dimensions.screenWidth,

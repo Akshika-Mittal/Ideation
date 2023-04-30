@@ -1,117 +1,154 @@
+import 'dart:async';
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:tiffin/screens/home/home_screen.dart';
+import 'package:tiffin/screens/sign_up/sign_up_screen.dart';
+import 'package:tiffin/utils/AppColors.dart';
+import 'package:tiffin/utils/constants.dart';
+import 'package:tiffin/widgets/default_button.dart';
 
 class OTPScreen extends StatefulWidget {
-  final String phone;
-  OTPScreen(this.phone);
+  final String phoneNumber;
+  final String countryCode;
+
+  //final String sessionId;
+
+  OTPScreen({required this.phoneNumber,required this.countryCode});
+
   @override
-  _OTPScreenState createState() => _OTPScreenState();
+  State<OTPScreen> createState() => _OTPScreenState(phoneNumber: phoneNumber,countryCode: countryCode);
 }
 
 class _OTPScreenState extends State<OTPScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
-  String? _verificationCode;
-  final TextEditingController _pinPutController = TextEditingController();
+  String phoneNumber,countryCode;
+  _OTPScreenState({required this.phoneNumber,required this.countryCode});
+  int _timerDuration = 30;
+  bool _timerActive = false;
+  late Timer _timer;
+  void initState() {
+    super.initState();
+    _timerActive = true;
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        _timerDuration--;
+      });
+      if (_timerDuration == 0) {
+        _timer.cancel();
+        _timerActive = false;
+      }
+    });
+  }
 
-
-  final defaultPinTheme = PinTheme(
-    width: 56,
-    height: 56,
-    textStyle: TextStyle(fontSize: 20, color: Color.fromRGBO(30, 60, 87, 1), fontWeight: FontWeight.w600),
-    decoration: BoxDecoration(
-      border: Border.all(color: Colors.black),
-      borderRadius: BorderRadius.circular(20),
-    ),
-  );
+  void dispose() {
+    _timer.cancel();
+    // _timerActive = false;
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldkey,
-      appBar: AppBar(
-        title: Text('OTP Verification'),
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    final formKey = GlobalKey<FormState>();
+    final defaultPinTheme = PinTheme(
+      width: screenWidth/7.563, //width56
+      height: screenHeight/16.022, //height56
+      textStyle: kB1BodyText,
+      decoration: BoxDecoration(
+        border: Border.all(
+            color: Color.fromRGBO(234, 239, 243, 1)),
+        borderRadius: BorderRadius.circular(20),
       ),
-      body: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: 40),
-            child: Center(
-              child: Text(
-                'Verify +1-${widget.phone}',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+    );
+    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+      border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
+      borderRadius: BorderRadius.circular(8),
+    );
+
+    final submittedPinTheme = defaultPinTheme.copyWith(
+      decoration: defaultPinTheme.decoration?.copyWith(
+        color: Color.fromRGBO(234, 239, 243, 1),
+      ),
+    );
+
+    final TextEditingController _pinPutController = TextEditingController();
+    final FocusNode _pinPutFocusNode = FocusNode();
+    return Scaffold(
+      //resizeToAvoidBottomInset: false,
+      body: Form(
+        key: formKey,
+        child: Padding(
+          padding: EdgeInsets.only(top: screenHeight/44.862 ,bottom: screenHeight/44.862,left:screenWidth/21.176,right:screenWidth/21.176), //height20,width20,
+          child: Column(
+            children: [
+              SizedBox(
+                height: screenHeight/8.974,  //height100
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Pinput(
-              length: 6,
-              defaultPinTheme: defaultPinTheme,
-
-              controller: _pinPutController,
-
-              pinAnimationType: PinAnimationType.fade,
-              onSubmitted: (pin) async {
-                try {
-                  await FirebaseAuth.instance
-                      .signInWithCredential(PhoneAuthProvider.credential(
-                      verificationId: _verificationCode!, smsCode: pin))
-                      .then((value) async {
-                    if (value.user != null) {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                              (route) => false);
-                    }
-                  });
-                } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
-
-                }
-              },
-            ),
-          )
-        ],
+              Center(
+                child: AutoSizeText(
+                  'OTP Verification',
+                  style: kH1Heading,
+                ),
+              ),
+              SizedBox(
+                height: screenHeight/59.816, //height15
+              ),
+              AutoSizeText("Enter the code sent to your mobile number",style: kH2Heading,
+                minFontSize: 12,),
+              SizedBox(
+                height:screenHeight/179.450,
+              ),
+              AutoSizeText(widget.countryCode+" "+widget.phoneNumber,style: kH2Heading,
+                minFontSize: 12,),
+              SizedBox(
+                height: screenHeight/29.908, //height30
+              ),
+              Pinput(
+                length: 6,
+                showCursor: true,
+                focusNode: _pinPutFocusNode,
+                controller: _pinPutController,
+                keyboardType: TextInputType.number,
+                onCompleted: (pin) => print(pin),
+              ),
+              SizedBox(
+                height: screenHeight/44.862, //height20
+              ),
+              Text(
+                "This code will expired in $_timerDuration",
+                style: kB1BodyText,
+              ),
+              Expanded(child: SizedBox()),
+              AutoSizeText("Didn't recieve code?",style: kB1BodyText,),
+              TextButton(
+                onPressed: _timerActive? null : _resendCode,
+                child: Text(
+                  'Resend',
+                  style: TextStyle(
+                    color: _timerActive?kLightGrey:Colors.purple,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: screenHeight/29.908, //height30
+              ),
+              DefaultButton(
+                text: 'Verify',
+                press: (){Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpScreen()));},
+              ),
+            ],
+          ) ,
+        ),
       ),
     );
   }
-
-  _verifyPhone() async {
-    await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: '+91${widget.phone}',
-        verificationCompleted: (PhoneAuthCredential credential) async {
-          await FirebaseAuth.instance
-              .signInWithCredential(credential)
-              .then((value) async {
-            if (value.user != null) {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
-                      (route) => false);
-            }
-          });
-        },
-        verificationFailed: (FirebaseAuthException e) {
-          print(e.message);
-        },
-        codeSent: (String? verficationID, int? resendToken) {
-          setState(() {
-            _verificationCode = verficationID;
-          });
-        },
-        codeAutoRetrievalTimeout: (String verificationID) {
-          setState(() {
-            _verificationCode = verificationID;
-          });
-        },
-        timeout: Duration(seconds: 120));
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _verifyPhone();
+  void _resendCode() {
+    //other code here
+    setState((){
+      _timerDuration = 30;
+      _timerActive = false;
+    });
   }
 }

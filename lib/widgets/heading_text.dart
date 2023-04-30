@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:tiffin/utils/AppColors.dart';
 import 'package:tiffin/utils/dimensions.dart';
 
+import '../utils/constants.dart';
+
 class HeadingText extends StatelessWidget {
   final String text;
   final Color color;

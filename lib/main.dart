@@ -21,8 +21,12 @@ class MyApp extends StatelessWidget {
     Get.find<SubscriptionController>().getSubscriptionList();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      //theme: theme(),
+      title: 'TIFF!',
+      // theme: ThemeData(
+      //   scaffoldBackgroundColor: Colors.white,
+      // ),
+      //scaffoldBackgroundColor: Colors.white,
+      theme: theme(),
       //home: SplashScreen(),
       initialRoute: SplashScreen.routeName,
       routes: routes,

@@ -1,191 +1,416 @@
-import 'dart:math';
-import 'package:scratcher/scratcher.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tiffin/screens/home/home_screen.dart';
 import 'package:tiffin/utils/AppColors.dart';
-import 'package:tiffin/utils/dimensions.dart';
+import 'package:tiffin/utils/constants.dart';
 import 'package:tiffin/widgets/default_button.dart';
-import 'package:tiffin/screens/polling/polling_result/components/polling_recommendation.dart';
-import 'package:confetti/confetti.dart';
-import 'package:tiffin/widgets/heading_text.dart';
-import 'package:tiffin/widgets/sub_heading_text.dart';
+import 'package:tiffin/widgets/divider_widget.dart';
+
+import '../../../../utils/dimensions.dart';
+import '../../../../widgets/AppBarWidget.dart';
+
 class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+
   @override
   State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  double _opacity = 0.0;
-  int randomNumber = 0;
-  static int total=0;
-
-  int generateRandom() {
-    Random random = new Random();
-    randomNumber = random.nextInt(10);
-    return randomNumber;
-  }
-  late ConfettiController _controller;
-  @override
-  void initState() {
-    super.initState();
-    _controller = new ConfettiController(
-      duration: new Duration(seconds: 2),
-    );
-  }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: kAppBackgroundColor,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Dimensions.width20),
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: Dimensions.height30,),
-            Container(
-              height: Dimensions.height160+Dimensions.height50,
-              width: Dimensions.screenWidth,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius25),
-                color: Colors.blueAccent,
-              ),
-                child: Scratcher(
-                  accuracy: ScratchAccuracy.low,
-                  color: Colors.white,
-                  threshold: 40,
-                  brushSize: 30,
-                  image: Image.asset(
-                    "assets/images/credits.png",
-                    fit: BoxFit.fitWidth,
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    return DefaultTabController(
+      length: 2,
+      child: SafeArea(
+          child: Container(
+            color: kLightGrey,
+            child: Padding(
+              padding: EdgeInsets.only(top: screenHeight/44.86,bottom: screenHeight/44.86, left: screenWidth/21.17, right: screenWidth/21.17), //top100,left=right=20
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  AutoSizeText(
+                    'Polled Items',
+                    style: kH1Heading,
                   ),
-                  onThreshold: () => _controller.play(),
-                  child: Container(
-                    height: Dimensions.height300,
-                    width:  Dimensions.screenWidth,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Dimensions.radius15),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Column(
-                            children: [
-                              ConfettiWidget(
-                                blastDirectionality: BlastDirectionality.explosive,
-                                confettiController: _controller,
-                                particleDrag: 0.05,
-                                emissionFrequency: 0.05,
-                                numberOfParticles: 30,
-                                gravity: 0.05,
-                                shouldLoop: false,
-                                colors: [
-                                  Colors.grey,
-                                  Colors.red,
-                                ],
-                              ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: Dimensions.width30,vertical: Dimensions.height30),
-                            child: HeadingText(
-                              text: '₹ ' + generateRandom().toString() + '.0',
-                              color: kMainThemeColor,
-                              size: Dimensions.font26,
-                              ),
+                  SizedBox(
+                    height: screenHeight/89.72, //height10
+                  ),
+                  AutoSizeText("These are just your polled items, final menu will be decided based on majority",style:kH2Heading),
+                  SizedBox(
+                    height: screenHeight/44.86, //height20
+                  ),
+                  SizedBox(height: screenHeight/44.86,), //height20
+                  TabBar(
+                      indicator: BoxDecoration(
+                          gradient: kPrimaryGradientColor,
+                          borderRadius: BorderRadius.circular(screenWidth/84.705) //radius5
+
+                      ),
+                      unselectedLabelColor: kBlackColor,
+                      tabs: [
+                        Tab(text:'Lunch',),
+                        Tab(text:'Dinner',),
+                      ]),
+                  SizedBox(height: screenHeight/44.86,), //height20
+                  SizedBox(
+                    height: screenHeight/2.99-screenHeight/29.90-screenHeight/44.86-screenHeight/89.72-screenHeight/89.72-screenHeight/89.72, //height250
+                    child: TabBarView(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(screenWidth/84.705)),//width5
+                            color: kWhiteColor,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: screenHeight/89.725,bottom: screenHeight/89.725,left: screenWidth/42.352,right: screenWidth/42.352), //height=width=10
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Meal",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('Quantity',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Mixed Vegetable Curry",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('1 Serving',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Brown Rice",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('1 Serving',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Spinach Salad",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('1 Serving',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Paneer Salad",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('1 Serving',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Masoor Dal",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('1 Serving',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Roti",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('3',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                //Divider(),
+                              ],
+
                             ),
-                          //Image.asset('assets/images/title.png',),
-                          SubHeadingText(
-                            text: 'CREDITS',
-                            color: kMainThemeColor,
-                            size: Dimensions.font17,
+                          ),
+
+
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(screenWidth/84.705)),
+                            color: kWhiteColor,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: screenHeight/89.725,bottom: screenHeight/89.725,left: screenWidth/42.352,right: screenWidth/42.352), //height=width=10
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Meal",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('Quantity',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Mixed Vegetable Curry",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('1 Serving',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Brown Rice",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('1 Serving',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Spinach Salad",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('1 Serving',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Paneer Salad",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('1 Serving',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Masoor Dal",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('1 Serving',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    AutoSizeText(
+                                      "Roti",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xff2d2d2d)),
+                                    ),
+                                    AutoSizeText('3',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+
+                                          color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                                //Divider(),
+                              ],
+
                             ),
-                          ],
+                          ),
+
+
                         ),
                       ],
                     ),
                   ),
-                ),
-            ),
-            SizedBox(height: Dimensions.height20,),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: kLightRedColor,
-              ),
-              onPressed: () {},
-              child: Row(
-                // mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SubHeadingText(
-                    text: 'Total credits won ₹ $total',
-                    size: Dimensions.font17,
-                    color: kWhiteColor,
-                  ), // <-- Text
-                  // SizedBox(
-                  //   width: 5,
-                  // ),
-                  Icon( // <-- Icon
-                    Icons.arrow_forward,
-                    size: 24.0,
-                  ),
+
+                  Spacer(),
+                  //Spacer(),
+                  AutoSizeText('Note : These items are polled by you it may or may not be included in the next days menu.Item\'s with the maximum no polls will be delivered to you. Please check today\'s menu after 12am ',style: kB1BodyText,),
+                  SizedBox(height: screenHeight/44.86,), //height20
+                  DefaultButton(text: 'Continue', press: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                  }),
                 ],
               ),
             ),
-            HeadingText(
-              text: 'Your Polling Has Been Accepted',
-              size: Dimensions.font17,
-              color: kBlackColor,
-            ),
-            SizedBox(height: Dimensions.height20,),
-            SubHeadingText(
-              text: 'We\'ve accepted your polling, and we\'ll \n announce the result at 12pm.',
-              size: Dimensions.font16,
-              color: kTextColor,
-            ),
-            SizedBox(height: Dimensions.height60,),
-            //Spacer(),
-            //this need to changed and moved to next page
-            DefaultButton(
-              text: 'View Details',
-              press: () {
-                total+=randomNumber;
-                print(total);
-              },
-            ),
-            SizedBox(height: Dimensions.height40,),
-            HeadingText(
-              text:'Recommend',
-              color: kBlackColor,
-              size: Dimensions.font17,
-              ),
-            SizedBox(height: Dimensions.height20,),
-            SubHeadingText(
-              text:'To recommend food items to be included into the main \nmenu, click on Recommend tab below.',
-              color: kTextColor,
-              size: Dimensions.font16,
-            ),
-            SizedBox(height: Dimensions.height20,),
-            DefaultButton(
-              text: 'Recommend',
-              press: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => PollingRecommendation(),
-                ));
-              },
-            ),
-            //total credits points need to be moved to next page
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 25.0),
-            //   child: Text(
-            //     '$total+$randomNumber',
-            //     style: TextStyle(
-            //       color: Color.fromRGBO(124, 124, 124, 1),
-            //       fontWeight: FontWeight.w500,
-            //       fontSize: 16,
-            //     ),
-            //   ),
-            // ),
-          ],
+
+          ),
+
         ),
-      ),
+    );
+  }
+}
+class ResultDetails extends StatelessWidget {
+  const ResultDetails({
+    Key? key,
+    required this.screenWidth,
+    required this.screenHeight,
+    required this.foodItem,
+    required this.quantity,
+  }) : super(key: key);
+
+  final double screenWidth;
+  final double screenHeight;
+  final String foodItem;
+  final String quantity;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // SizedBox(width: screenWidth/21.17,), //width20
+        AutoSizeText(
+            foodItem,
+            style: kB1BodyTextBlack
+        ),
+        AutoSizeText(
+            quantity,
+            style: kB1BodyTextBlack
+        ),
+      ],
     );
   }
 }

@@ -1,9 +1,14 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:date_picker_timeline/extra/dimen.dart';
 import 'package:flutter/material.dart';
+import 'package:tiffin/screens/home/home_screen.dart';
 import 'package:tiffin/utils/AppColors.dart';
 import 'package:tiffin/utils/dimensions.dart';
 import 'package:tiffin/widgets/heading_text.dart';
 import 'package:tiffin/widgets/sub_heading_text.dart';
+
+import '../../../utils/constants.dart';
+import '../../order_details/order_details_screen.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -36,188 +41,101 @@ class _BodyState extends State<Body> {
   List<int> subProductQuantity=[0,0,0,0,0,0,0,0];
 
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     int total = this.subProductQuantity[0] + this.subProductQuantity[1] + this.subProductQuantity[2] + this.subProductQuantity[3]+this.subProductQuantity[4]+this.subProductQuantity[5]+this.subProductQuantity[6]+this.subProductQuantity[7];
-
-    return Padding(
-          padding: EdgeInsets.symmetric(horizontal: Dimensions.width20, vertical: Dimensions.height20),
-          child: Stack(
-              children:[
-                ListView.builder(itemCount: subProductName.length,itemBuilder: (context, index){
-                  return Column(
-                    crossAxisAlignment:CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: Dimensions.screenWidth,
-                        height: Dimensions.height100,
-                        decoration: BoxDecoration(
-                            color: kAppBackgroundColor,
-                            borderRadius: BorderRadius.circular(Dimensions.height10),
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: Dimensions.height10,horizontal: Dimensions.width10),
-                              child: Container(
-                                height: Dimensions.height60,
-                                width: Dimensions.width60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(Dimensions.height10),
-                                  image:DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image:AssetImage(subProductImage[index],)
-
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top:Dimensions.height10,bottom:Dimensions.height10),
-                              child: Container(
-                                width: Dimensions.width130+Dimensions.width30+Dimensions.width20,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        HeadingText(
-                                          text:subProductName[index],
-                                        ),
-                                      ],
-                                    ),
-                                    SubHeadingText(text: subProductDescription[index],),
-                                    SubHeadingText(text: '₹ '+subProductPrice[index].toString(),color: kBlackColor),
-
-                                    //Text(result2,style: TextStyle(color: Colors.white,fontSize: 16, fontWeight: FontWeight.w600),)//will be updated according to date
-                                  ],
-                                ),
-                              ),
-                            ),
-                            subProductQuantity[index]==0? Padding(
-                              padding: EdgeInsets.only(top: Dimensions.height50,left: Dimensions.width15),
-                              child: GestureDetector(
-                                onTap: (){
-                                  setState(() {
-                                    //print(productQuantity[index]);
-                                    //int a=productQuantity[0];
-                                    // print('index');
-                                    //print(index);
-                                    ///print('productQuantity[index] value');
-                                    // print(productQuantity[index]);
-                                    int a = subProductQuantity[index]++;
-                                    // print(a);
-                                    subProductQuantity[index]=1;
-                                    //print(productQuantity[index]);
-                                    //print('total');
-                                    //print(total);
-                                    // print('p1');
-                                    //print(p1Quantity);
-                                  });
-                                },
+    return Container(
+      color: kLightGrey,
+      child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: screenWidth/42.35, vertical: Dimensions.height20),
+            child: Stack(
+                children:[
+                  ListView.builder(itemCount: subProductName.length,itemBuilder: (context, index){
+                    return Column(
+                      crossAxisAlignment:CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: screenWidth,
+                          height: screenHeight/8.97, //height100
+                          decoration: BoxDecoration(
+                              color: kWhiteColor,
+                              borderRadius: BorderRadius.circular(screenWidth/42.35), //width10
+                          ),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: screenHeight/89.72,horizontal: screenWidth/42.35), //width10 height10
                                 child: Container(
-                                  height: Dimensions.height25,
-                                  width: Dimensions.width70,
+                                  height: screenHeight/14.95, //height60
+                                  width: screenWidth/7.05,//width60
                                   decoration: BoxDecoration(
-                                      color: kMainThemeColor,
-                                      borderRadius: BorderRadius.circular(Dimensions.height10),
+                                    borderRadius: BorderRadius.circular(screenHeight/89.72),
+                                    image:DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image:AssetImage(subProductImage[index],)
+
+                                    ),
                                   ),
-                                  child: Center(child: SubHeadingText(text: 'Add',color: kWhiteColor,)),
                                 ),
                               ),
-                            ):Padding(padding: EdgeInsets.only(top: Dimensions.height50,left: Dimensions.width15), child: Row(children: [
-                              GestureDetector(
-                                onTap: (){
-                                  setState(() {
-                                    //p1Quantity--;
-                                    subProductQuantity[index]--;
-                                    //print('-- activity');
-                                    //print(productQuantity[index]);
-                                  });
-                                },
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: screenHeight/89.72,horizontal: screenWidth/42.35), //width10 height10
                                 child: Container(
-                                  height: Dimensions.height25,
-                                  width: Dimensions.width20,
-                                  decoration: BoxDecoration(color: kMainThemeColor,
-                                      borderRadius: BorderRadiusDirectional.only(topStart: Radius.circular(Dimensions.height10),bottomStart: Radius.circular(Dimensions.height10),
-                                      )
-                                  ),
-                                  child: Center(
-                                    child: SubHeadingText(text: '-',color: kWhiteColor,),
+                                  width: screenWidth/3.25+screenWidth/14.11+screenWidth/21.17, //1idth180
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          AutoSizeText(
+                                            subProductName[index],
+                                            style: kBodyHeading1TextBoldBlack,
+                                          ),
+                                        ],
+                                      ),
+                                      AutoSizeText(subProductDescription[index],style: kB1BodyText,),
+                                      AutoSizeText('₹ '+subProductPrice[index].toString(),style: kB1BodyText,),
+
+                                      //Text(result2,style: TextStyle(color: Colors.white,fontSize: 16, fontWeight: FontWeight.w600),)//will be updated according to date
+                                    ],
                                   ),
                                 ),
                               ),
-                              Container(
-                                height: Dimensions.height25,
-                                width: Dimensions.width30,
-                                color: kWhiteColor,
-                                child: Center(
-                                  child: SubHeadingText(text: subProductQuantity[index].toString(),color:kMainThemeColor),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: (){
-                                  setState(() {
-                                    subProductQuantity[index]++;
-                                    // print(total);
-                                  });
-                                },
+                              Padding(
+                                padding: EdgeInsets.only(top: screenHeight/17.94,left: screenWidth/7.56-5), //top50 //left50
                                 child: Container(
-                                  height: Dimensions.height25,
-                                  width: Dimensions.width20,
-                                  decoration: BoxDecoration(color: kMainThemeColor,
-                                      borderRadius: BorderRadiusDirectional.only(topEnd: Radius.circular(Dimensions.height10),bottomEnd: Radius.circular(Dimensions.height10),
-                                      )
-                                  ),
-                                  child: Center(
-                                    child: SubHeadingText(text: '+',color: kWhiteColor,),
+                                  height: Dimensions.height30,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(screenWidth/105.88), //width4
+                                      gradient: kPrimaryGradientColor),
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => OrderDetailsScreen()));
+                                    },
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(horizontal:screenWidth/52.94 ,vertical:screenHeight/109.90 ), //height8 width8
+                                          child: AutoSizeText('Buy Now',style: kSmallButtonText,),
+                                        )),
                                   ),
                                 ),
                               ),
                             ],
-                            ),)
-                          ],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: Dimensions.height20,),
-                    ],);
-                }),
-                total>0?Positioned(
-                  bottom: Dimensions.height20,
-                  child: Container(
-                      width: Dimensions.screenWidth-40,
-                      height: Dimensions.height60,
-                      child:Padding(
-                        padding: EdgeInsets.symmetric(vertical: Dimensions.height10,horizontal: Dimensions.width10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    SubHeadingText(text: (subProductQuantity[0]+subProductQuantity[1]+subProductQuantity[2]+subProductQuantity[3]+subProductQuantity[4]+subProductQuantity[5]+subProductQuantity[6]+subProductQuantity[7]).toString()+' items | ',color: kWhiteColor,),
-                                    SubHeadingText(text: '₹ '+(subProductQuantity[0]*subProductPrice[0]+subProductQuantity[1]*subProductPrice[2]+subProductQuantity[2]*subProductPrice[2]+subProductQuantity[3]*subProductPrice[3]+subProductQuantity[4]*subProductPrice[4]+subProductQuantity[5]*subProductPrice[5]+subProductQuantity[6]*subProductPrice[6]+subProductQuantity[7]*subProductPrice[7]).toString(),color: kWhiteColor,),
-                                  ],
-                                ),
-                                SubHeadingText(text: 'Extra charges may apply',color: kWhiteColor, ),
-                              ],
-                            ),
-                            Spacer(),
-                            SubHeadingText(text: 'View Cart',color: kWhiteColor,),
-                          ],
+                        SizedBox(
+                          height: screenHeight/44.86, //height20
                         ),
-                      ),
-                      decoration: BoxDecoration(color: kMainThemeColor,
-                        borderRadius:BorderRadius.circular(Dimensions.height10),
-                      )
-
-                  ),
-                ):SizedBox(
-                  height: Dimensions.height300,
-                ),
-              ]
-          ),
+                    ],
+                    );
+                  }
+                  )
+                ]
+            ),
+      ),
     );
   }
 }

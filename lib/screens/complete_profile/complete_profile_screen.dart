@@ -11,11 +11,6 @@ class CompleteProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavigationDrawerWidget(),
-      appBar:PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBarWidget(),
-    ),
       body: Body(),
       bottomNavigationBar: CustomBottomNavBar(selectedMenu:MenuState.profile),
     );

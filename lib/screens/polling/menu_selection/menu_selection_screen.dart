@@ -6,16 +6,17 @@ import 'package:tiffin/components/navigation_drawer.dart';
 import 'package:tiffin/enums.dart';
 import 'package:tiffin/screens/polling/menu_selection/components/body.dart';
 
+import '../../../widgets/screen_heading.dart';
+
 class MenuSelection extends StatelessWidget {
   static String routeName = "/menu_selection";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavigationDrawerWidget(),
+      resizeToAvoidBottomInset: false,
       appBar:PreferredSize(
-        preferredSize:Size.fromHeight(Dimensions.appBarPrefferedHeight),
-        child: AppBarWidget(),
-      ),
+          preferredSize: Size.fromHeight(Dimensions.appBarPrefferedHeight),
+          child: AppBarWidget(text:'Choose your appetite')),
       body: Body(),
       bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.none,),
       //bottomNavigationBar:

@@ -4,6 +4,7 @@ import 'package:tiffin/screens/sign_up/sign_up_screen.dart';
 import 'package:tiffin/utils/size_config.dart';
 
 import '../screens/forgot_password/forgot_password_screen.dart';
+import '../utils/AppColors.dart';
 
 
 class NoAccountText extends StatelessWidget {
@@ -29,7 +30,7 @@ class NoAccountText extends StatelessWidget {
             "Sign Up",
             style: TextStyle(
               fontSize: getProportionateScreenWidth(16),
-              color: kPrimaryColor,
+              color: kMainThemeColor,
             ),
           ),
         ),

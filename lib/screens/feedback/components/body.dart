@@ -1,108 +1,111 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:tiffin/screens/home/home_screen.dart';
 import 'package:tiffin/utils/AppColors.dart';
-import 'package:tiffin/utils/dimensions.dart';
+import 'package:tiffin/utils/constants.dart';
 import 'package:tiffin/widgets/default_button.dart';
-import 'package:tiffin/widgets/divider_widget.dart';
-import 'package:tiffin/widgets/heading_text.dart';
-import 'package:tiffin/widgets/sub_heading_text.dart';
-import 'package:tiffin/screens/customer_support/customer_support_screen.dart';
-import 'package:tiffin/screens/home/components/body.dart';
 
-class Body extends StatefulWidget {
-  const Body({Key? key}) : super(key: key);
-
-  @override
-  State<Body> createState() => _BodyState();
-}
-
-class _BodyState extends State<Body> {
+class Body extends StatelessWidget {
   int deliveryStatusCode=0;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Dimensions.width12,vertical: Dimensions.height12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          DividerWidget(),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: HeadingText(text: 'Send Feedback',),
-            ),
-          SizedBox(height: Dimensions.height10,),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: SubHeadingText(text: 'Tell us what you love about our app or what we could be doing better',),
-          ),
-          SizedBox(height: Dimensions.height30,),
-          TextFormField(
-            decoration: InputDecoration(
-              border: UnderlineInputBorder(),
-              labelText: 'Enter Feedback',
-            ),
-          ),
-          SizedBox(height: Dimensions.height40,),
-          GestureDetector(
-            onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) =>CustomerSupport(),
-            ));},
-            child: Container(
-              height: Dimensions.height110,
-              width: Dimensions.screenWidth,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.width10),
-                color: kMainThemeColor,
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    return SafeArea(
+      child: Container(
+        color: kLightGrey,
+        child: Padding(
+          padding: EdgeInsets.only(left:screenWidth/21.17,right: screenWidth/21.17,top: screenHeight/89.72,bottom: screenHeight/44.86), //left=right=20 top=10
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                height: screenHeight/2.99+screenHeight/12.81,
+                decoration: BoxDecoration(
+                  image:DecorationImage(
+                    //colorFilter: kBlackColor,
+                    fit: BoxFit.cover,
+                    //alignment: FractionalOffset.topRight,
+                    image: AssetImage(
+                        'assets/images/feedback.png'),
+                  ),
+                ),//height370
               ),
-              child: Padding(
-                padding:EdgeInsets.symmetric(horizontal: Dimensions.width12,vertical: Dimensions.height12),
-                child: Row(
-                  children: <Widget>[
-                    Image(
-                        image: AssetImage('assets/images/feedback.png',),),
-                    SizedBox(width: Dimensions.width20,),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: Dimensions.height15,
-                          ),
-                          SubHeadingText(
-                            text:'Need help with your order?',
-                            color: kWhiteColor,
-                          ),
-                          SubHeadingText(
-                            text: 'Get instant help from our support team',
-                            color: kWhiteColor,
-                          ),
-                        ],
-                      ),
-                    ),
-                 ],
+              SizedBox(
+                height:screenHeight/44.86, //height20
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: RatingBar.builder(
+                  initialRating: 0,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: screenWidth/105.88), //width4
+                  itemBuilder: (context, _) => ShaderMask(
+                    blendMode: BlendMode.srcATop,
+                    shaderCallback: (bounds) =>kPrimaryGradientColor.createShader(bounds),
+                    child: Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                ),
+                  ),
+                  onRatingUpdate: (rating) {
+                  print(rating);
+                },
                 ),
               ),
-            ),
+             SizedBox(
+               height: screenHeight/89.72, //height10
+             ),
+              SizedBox(
+                height: screenHeight/89.72, //height10
+              ),//DividerWidget(),
+              Align(
+                alignment: Alignment.center,
+                child: AutoSizeText('Send Feedback',style: kH1Heading,),
+                ),
+              SizedBox(
+                height: screenHeight/29.90, //height30
+              ),
+              //SizedBox(height: Dimensions.height10,),
+              AutoSizeText('Tell us what you love about our app or what we could be doing better',style: kH2Heading,textAlign: TextAlign.center,),
+              SizedBox(
+                height: screenHeight/29.90, //height30
+              ),
+              Container(
+                color: kWhiteColor,
+                child: TextField(
+                  decoration: InputDecoration(
+                    //fillColor:kWhiteColor,
+                    //focusColor:kWhiteColor,
+                    //hoverColor:kWhiteColor,
+                    enabledBorder:InputBorder.none,
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: 'Enter Feedback',
+                    hintStyle: kB1BodyText,
+                    contentPadding:
+                    EdgeInsets.only(left: screenWidth/42.35, bottom: screenHeight/89.72+screenHeight/897.254, top: screenHeight/89.72+screenHeight/897.254,right: screenWidth/28.23), //left 10 right 15 top=bottpm=11
+                  ),
+                  maxLines : 5,
+                  style: kB1BodyText,
+                ),
+              ),
+
+              Spacer(),
+              DefaultButton(
+                  text: 'Submit Feedback',
+                  press: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                  }
+              ),
+            ],
           ),
-          // FloatingActionButton(
-          //     onPressed: (){
-          //       // Navigator.of(context).push(MaterialPageRoute(builder: (context) =>HomeScreen( statuscode: deliveryStatusCode,),
-          //       // ));
-          //       setState(() {
-          //         if(deliveryStatusCode == 6){
-          //           deliveryStatusCode=0;
-          //         }
-          //         else{
-          //           deliveryStatusCode++;
-          //         }
-          //       });
-          //     }),
-          Spacer(),
-          DefaultButton(
-              text: 'Submit Feedback',
-              press: (){}
-          ),
-        ],
+        ),
       ),
     );
   }

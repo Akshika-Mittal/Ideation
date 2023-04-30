@@ -1,37 +1,44 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:tiffin/utils/AppColors.dart';
+import 'package:tiffin/utils/constants.dart';
 import 'package:tiffin/utils/dimensions.dart';
 import 'package:tiffin/widgets/heading_text.dart';
 
 class DefaultButton extends StatelessWidget {
-  const DefaultButton({required this.text,required this.press,this.bgColor=kBlackColor,this.textColor=kBlackColor});
+  const DefaultButton({required this.text,required this.press});
   final String text;
   final Function()? press;
-  final Color bgColor;
-  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: Dimensions.width20,
-      ),
-      child: SizedBox(
-        height: Dimensions.blockSizeH * 15.5,
-        width: Dimensions.blockSizeH * 100,
-        child: OutlinedButton(
-          onPressed: press,
-          child: HeadingText(
-            text: text,
-            color: textColor,
-            size: Dimensions.font20,
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    return MaterialButton(
+        onPressed: press,
+        padding: EdgeInsets.only(right: 0.0),
+        child: Ink(
+          decoration: BoxDecoration(
+            gradient: kPrimaryGradientColor,
+            borderRadius: BorderRadius.all(Radius.circular(screenWidth/84.705)),
           ),
-          style: OutlinedButton.styleFrom(
-            //onSurface: kBlackColor,
-            side: BorderSide(color:kBlackColor,width: 1),
-            ),
-            //backgroundColor: bgColor,
-          ),
+          child: Container(
+              constraints: BoxConstraints(
+                minWidth: screenWidth/7.058, //width60
+                minHeight: screenHeight/14.954, //height60
+              ), // min sizes for Material buttons
+              alignment: Alignment.center,
+              child: AutoSizeText(
+                text,
+                minFontSize: 12,
+                style: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize:16,
+                  fontWeight: FontWeight.w700,
+                  color: kWhiteColor,
+                  height: 1,
+                ),
+              )),
         ),
     );
   }

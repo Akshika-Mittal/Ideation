@@ -1,4 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:tiffin/utils/AppColors.dart';
+
+import '../../../utils/constants.dart';
+import '../../../utils/dimensions.dart';
+import '../../home/home_screen.dart';
+import '../../order_details/order_details_screen.dart';
 
 class Body extends StatefulWidget {
   State<Body> createState() => _BodyState();
@@ -6,653 +13,110 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   List<String> productName=['Vegetarian Delight','Non Veg Delight','Healthy Vegetarian','Healthy Non Veg'];
-  List<String> productImage=['assets/images/V.png','assets/images/NV.png','assets/images/HV.png','assets/images/HNV.png'];
+  List<String> productImage=['assets/images/BR15.png','assets/images/B30.png','assets/images/S15.png','assets/images/S30.png'];
   List<String> productCategoryImage=['assets/images/Vegetarian Logo.png','assets/images/Non Vegetarian Logo.png','assets/images/Vegetarian Logo.png','assets/images/Non Vegetarian Logo.png'];
   List<int> productPrice=[299,299,399,399];
   List<int> productQuantity=[0,0,0,0];
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     int total = this.productQuantity[0] + this.productQuantity[1] + productQuantity[2] + productQuantity[3];
     return Scaffold(
-      body: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Stack(
-              children:[
-                ListView.builder(itemCount: productName.length,itemBuilder: (context, index){
-                  return Column(
-                    crossAxisAlignment:CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 110,
-                        decoration: BoxDecoration(
-                            color: Color(0xfff2f2f2),
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image:DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image:AssetImage(productImage[index],)
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top:20.0),
-                              child: Container(
-                                width: 180,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 20,
-                                          width: 20,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            image:DecorationImage(
-                                              image: AssetImage(productCategoryImage[index]),
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          productName[index],
-                                          style: TextStyle(
-                                            //color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600),),],
-                                    ),
-                                    Text('See today\'s menu for item \ndetails',style: TextStyle(fontSize: 12),),
-                                    Text('₹ '+productPrice[index].toString(),style: TextStyle(fontSize: 12,color: Colors.black),)
-
-                                    //Text(result2,style: TextStyle(color: Colors.white,fontSize: 16, fontWeight: FontWeight.w600),)//will be updated according to date
-                                  ],
-                                ),
-                              ),
-                            ),
-                            productQuantity[index]==0? Padding(
-                              padding: const EdgeInsets.only(top: 55,left: 15),
-                              child: GestureDetector(
-                                onTap: (){
-                                  setState(() {
-                                    //print(productQuantity[index]);
-                                    //int a=productQuantity[0];
-                                    // print('index');
-                                    //print(index);
-                                    ///print('productQuantity[index] value');
-                                    // print(productQuantity[index]);
-                                    int a = productQuantity[index]++;
-                                    // print(a);
-                                    productQuantity[index]=1;
-                                    //print(productQuantity[index]);
-                                    //print('total');
-                                    //print(total);
-                                    // print('p1');
-                                    //print(p1Quantity);
-                                  });
-                                },
+      body: Container(
+        color: kLightGrey,
+        child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: screenWidth/42.35, vertical: screenHeight/44.86),
+            child: Stack(
+                children:[
+                  ListView.builder(itemCount: productName.length,itemBuilder: (context, index){
+                    return Column(
+                      crossAxisAlignment:CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: screenWidth,
+                          height: screenHeight/8.97, //height100
+                          decoration: BoxDecoration(
+                            color: kWhiteColor,
+                            borderRadius: BorderRadius.circular(screenWidth/42.35), //width10
+                          ),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: screenHeight/89.72,horizontal: screenWidth/42.35), //width10 height10
                                 child: Container(
-                                  height: 25,
-                                  width: 70,
+                                  height: screenHeight/14.95, //height60
+                                  width: screenWidth/7.05,//width60
                                   decoration: BoxDecoration(
-                                      color: Color(0xffEb4749),
-                                      borderRadius: BorderRadius.circular(10)
+                                    borderRadius: BorderRadius.circular(screenHeight/89.72), //width10
+                                    image:DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image:AssetImage(productImage[index],)
+
+                                    ),
                                   ),
-                                  child: Center(child: Text('Add',style: TextStyle(fontSize: 12,color: Colors.white),)),
                                 ),
                               ),
-                            ):Padding(padding: const EdgeInsets.only(top: 55,left: 15), child: Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: (){
-                                    setState(() {
-                                      //p1Quantity--;
-                                      productQuantity[index]--;
-                                      //print('-- activity');
-                                      //print(productQuantity[index]);
-                                    });
-                                  },
-                                  child: Container(
-                                    height: 25,
-                                    width: 20,
-                                    decoration: BoxDecoration(color: Color(0xffEb4749),
-                                        borderRadius: BorderRadiusDirectional.only(topStart: Radius.circular(10),bottomStart: Radius.circular(10),
-                                        )
-                                    ),
-                                    child: Center(
-                                      child: Text('-',style: TextStyle(fontSize: 12,color: Colors.white),),
-                                    ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: screenHeight/89.72,horizontal: screenWidth/42.35), //width10 height10
+                                child: Container(
+                                  width: screenWidth/3.25+screenWidth/14.11+screenWidth/21.17, //1idth180
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          AutoSizeText(
+                                            productName[index],
+                                            style: kBodyHeading1TextBoldBlack,
+                                          ),
+                                        ],
+                                      ),
+                                      AutoSizeText('See today\'s menu for item \ndetails',style: kB1BodyText,),
+                                      AutoSizeText('₹ '+productPrice[index].toString(),style: kB1BodyText,),
 
+                                      //Text(result2,style: TextStyle(color: Colors.white,fontSize: 16, fontWeight: FontWeight.w600),)//will be updated according to date
+                                    ],
                                   ),
                                 ),
-                                Container(
-                                  height: 25,
-                                  width: 30,
-                                  color: Colors.white,
-                                  child: Center(
-                                    child: Text(productQuantity[index].toString(),style: TextStyle(fontSize: 12,color: Color(0xffeb4749)),),
-                                  ),
-
-                                ),
-                                GestureDetector(
-                                  onTap: (){
-                                    setState(() {
-                                      productQuantity[index]++;
-                                      // print(total);
-                                    });
-
-                                  },
-                                  child: Container(
-                                    height: 25,
-                                    width: 20,
-                                    decoration: BoxDecoration(color: Color(0xffEb4749),
-                                        borderRadius: BorderRadiusDirectional.only(topEnd: Radius.circular(10),bottomEnd: Radius.circular(10),
-                                        )
-                                    ),
-                                    child: Center(
-                                      child: Text('+',style: TextStyle(fontSize: 12,color: Colors.white),),
-                                    ),
-
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: screenHeight/17.94,left: screenWidth/7.56-5), //top50 //left50
+                                child: Container(
+                                  height: screenHeight/29.90, //height30
+                                  width: screenWidth/7.05, //width60
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(screenWidth/105.88), //width4
+                                      gradient: kPrimaryGradientColor),
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => OrderDetailsScreen()));
+                                    },
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(horizontal:screenWidth/52.94 ,vertical:screenHeight/109.90 ), //height8 width8
+                                          child: AutoSizeText('Add',style: kSmallButtonText,),
+                                        )),
                                   ),
                                 ),
-                              ],
-                            ),)
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
-
-                      ),
-                      SizedBox(height: 20,),
-                    ],);
-
-                }),
-
-
-
-                total>0?Positioned(
-                  bottom:20 ,
-                  child: Container(
-                      width: MediaQuery.of(context).size.width-40,
-                      height: 60,
-                      child:Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text((productQuantity[0]+productQuantity[1]+productQuantity[2]+productQuantity[3]).toString()+' items | ',style: TextStyle(color: Colors.white ),),
-                                    Text('₹ '+(productQuantity[0]*299+productQuantity[1]*299+productQuantity[2]*399+productQuantity[3]*399).toString(),style: TextStyle(color: Colors.white ),),
-
-                                  ],
-                                ),
-                                Text('Extra charges may apply',style: TextStyle(color: Colors.white,fontSize: 10 ),)
-                              ],
-                            ),
-                            Spacer(),
-                            Text('View Cart',style: TextStyle(color: Colors.white ),)
-                          ],
+                        SizedBox(
+                          height: screenHeight/44.86, //height20
                         ),
-                      ),
-                      decoration: BoxDecoration(color: Color(0xffEb4749),
-                        borderRadius:BorderRadius.circular(10),
-                      )
-
-                  ),
-                ):SizedBox(),
-
-              ]
-          )
+                      ],
+                    );
+                  }
+                  )
+                ]
+            )
+        ),
       ),
 
     );
   }
 }
-
-
-
-
-// Container(
-//   width: MediaQuery.of(context).size.width,
-//   height: 110,
-//   decoration: BoxDecoration(
-//       color: Color(0xfff2f2f2),
-//       borderRadius: BorderRadius.circular(10)
-//   ),
-//   child: Row(
-//     children: [
-//       Padding(
-//         padding: const EdgeInsets.all(10.0),
-//         child: Container(
-//           height: 60,
-//           width: 60,
-//           decoration: BoxDecoration(
-//
-//             borderRadius: BorderRadius.circular(10),
-//
-//             image:DecorationImage(
-//                 fit: BoxFit.cover,
-//                 image:AssetImage('assets/images/NV.png',)
-//             ),
-//
-//           ),
-//         ),
-//       ),
-//
-//       Padding(
-//         padding: const EdgeInsets.only(top:20.0),
-//         child: Container(
-//           width: 180,
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.start,
-//                 children: [
-//                   Container(
-//                     height: 20,
-//                     width: 20,
-//                     decoration: BoxDecoration(
-//                       borderRadius: BorderRadius.circular(10),
-//                       image:DecorationImage(
-//                         image: AssetImage('assets/images/Non Vegetarian Logo.png'),
-//                       ),
-//
-//                     ),
-//
-//                   ),
-//                   Text(
-//                     " Non Vegeterian",
-//                     style: TextStyle(
-//                       //color: Colors.white,
-//                         fontSize: 16,
-//                         fontWeight: FontWeight.w600),),],
-//               ),
-//               Text('See today\'s menu for item \ndetails',style: TextStyle(fontSize: 12),),
-//               Text('₹ 299.00',style: TextStyle(fontSize: 12,color: Colors.black),)
-//
-//
-//               //Text(result2,style: TextStyle(color: Colors.white,fontSize: 16, fontWeight: FontWeight.w600),)//will be updated according to date
-//             ],
-//           ),
-//         ),
-//       ),
-//
-//       p2Quantity==0? Padding(
-//         padding: const EdgeInsets.only(top: 55,left: 15),
-//         child: GestureDetector(
-//           onTap: (){
-//             setState(() {
-//               p2Quantity++;
-//             });
-//
-//
-//           },
-//           child: Container(
-//             height: 25,
-//             width: 70,
-//             decoration: BoxDecoration(
-//
-//                 color: Color(0xffEb4749),
-//                 borderRadius: BorderRadius.circular(10)
-//             ),
-//             child: Center(child: Text('Add',style: TextStyle(fontSize: 12,color: Colors.white),)),
-//           ),
-//         ),
-//       ):Padding(padding: const EdgeInsets.only(top: 55,left: 15), child: Row(
-//         children: [
-//           GestureDetector(
-//             onTap: (){
-//               setState(() {
-//                 p2Quantity--;
-//               });
-//
-//             },
-//             child: Container(
-//               height: 25,
-//               width: 20,
-//               decoration: BoxDecoration(color: Color(0xffEb4749),
-//                   borderRadius: BorderRadiusDirectional.only(topStart: Radius.circular(10),bottomStart: Radius.circular(10),
-//                   )
-//               ),
-//               child: Center(
-//                 child: Text('-',style: TextStyle(fontSize: 12,color: Colors.white),),
-//               ),
-//
-//             ),
-//           ),
-//           Container(
-//             height: 25,
-//             width: 30,
-//             color: Colors.white,
-//             child: Center(
-//               child: Text('$p2Quantity',style: TextStyle(fontSize: 12,color: Color(0xffeb4749)),),
-//             ),
-//
-//           ),
-//           GestureDetector(
-//             onTap: (){
-//               setState(() {
-//                 p2Quantity++;
-//               });
-//
-//             },
-//             child: Container(
-//               height: 25,
-//               width: 20,
-//               decoration: BoxDecoration(color: Color(0xffEb4749),
-//                   borderRadius: BorderRadiusDirectional.only(topEnd: Radius.circular(10),bottomEnd: Radius.circular(10),
-//                   )
-//               ),
-//               child: Center(
-//                 child: Text('+',style: TextStyle(fontSize: 12,color: Colors.white),),
-//               ),
-//
-//             ),
-//           ),
-//         ],
-//       ),)
-//
-//     ],
-//   ),
-//
-// ),
-// SizedBox(height: 20,),
-// Container(
-//   width: MediaQuery.of(context).size.width,
-//   height: 110,
-//   decoration: BoxDecoration(
-//       color: Color(0xfff2f2f2),
-//       borderRadius: BorderRadius.circular(10)
-//   ),
-//   child: Row(
-//     children: [
-//       Padding(
-//         padding: const EdgeInsets.all(10.0),
-//         child: Container(
-//           height: 60,
-//           width: 60,
-//           decoration: BoxDecoration(
-//
-//             borderRadius: BorderRadius.circular(10),
-//
-//             image:DecorationImage(
-//                 fit: BoxFit.cover,
-//                 image:AssetImage('assets/images/HV.png',)
-//             ),
-//
-//           ),
-//         ),
-//       ),
-//       Padding(
-//         padding: const EdgeInsets.only(top:20.0),
-//         child: Container(
-//           width: 180,
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.start,
-//                 children: [
-//                   Container(
-//                     height: 20,
-//                     width: 20,
-//                     decoration: BoxDecoration(
-//                       borderRadius: BorderRadius.circular(10),
-//                       image:DecorationImage(
-//                         image: AssetImage('assets/images/Vegetarian Logo.png'),
-//                       ),
-//
-//                     ),
-//
-//                   ),
-//                   Text(
-//                     " Healthy Vegeterian",
-//                     style: TextStyle(
-//                       //color: Colors.white,
-//                         fontSize: 16,
-//                         fontWeight: FontWeight.w600),),],
-//               ),
-//               Text('See today\'s menu for item \ndetails',style: TextStyle(fontSize: 12),),
-//               Text('₹ 399.00',style: TextStyle(fontSize: 12,color: Colors.black),)
-//
-//
-//               //Text(result2,style: TextStyle(color: Colors.white,fontSize: 16, fontWeight: FontWeight.w600),)//will be updated according to date
-//             ],
-//           ),
-//         ),
-//       ),
-//
-//       p3Quantity==0? Padding(
-//         padding: const EdgeInsets.only(top: 55,left: 15),
-//         child: GestureDetector(
-//           onTap: (){
-//             setState(() {
-//               p3Quantity++;
-//             });
-//
-//
-//           },
-//           child: Container(
-//             height: 25,
-//             width: 70,
-//             decoration: BoxDecoration(
-//
-//                 color: Color(0xffEb4749),
-//                 borderRadius: BorderRadius.circular(10)
-//             ),
-//             child: Center(child: Text('Add',style: TextStyle(fontSize: 12,color: Colors.white),)),
-//           ),
-//         ),
-//       ):Padding(padding: const EdgeInsets.only(top: 55,left: 15), child: Row(
-//         children: [
-//           GestureDetector(
-//             onTap: (){
-//               setState(() {
-//                 p3Quantity--;
-//               });
-//
-//             },
-//             child: Container(
-//               height: 25,
-//               width: 20,
-//               decoration: BoxDecoration(color: Color(0xffEb4749),
-//                   borderRadius: BorderRadiusDirectional.only(topStart: Radius.circular(10),bottomStart: Radius.circular(10),
-//                   )
-//               ),
-//               child: Center(
-//                 child: Text('-',style: TextStyle(fontSize: 12,color: Colors.white),),
-//               ),
-//
-//             ),
-//           ),
-//           Container(
-//             height: 25,
-//             width: 30,
-//             color: Colors.white,
-//             child: Center(
-//               child: Text('$p3Quantity',style: TextStyle(fontSize: 12,color: Color(0xffeb4749)),),
-//             ),
-//
-//           ),
-//           GestureDetector(
-//             onTap: (){
-//               setState(() {
-//                 p3Quantity++;
-//               });
-//
-//             },
-//             child: Container(
-//               height: 25,
-//               width: 20,
-//               decoration: BoxDecoration(color: Color(0xffEb4749),
-//                   borderRadius: BorderRadiusDirectional.only(topEnd: Radius.circular(10),bottomEnd: Radius.circular(10),
-//                   )
-//               ),
-//               child: Center(
-//                 child: Text('+',style: TextStyle(fontSize: 12,color: Colors.white),),
-//               ),
-//
-//             ),
-//           ),
-//         ],
-//       ),)
-//
-//     ],
-//   ),
-//
-// ),
-// SizedBox(height: 20,),
-// Container(
-//   width: MediaQuery.of(context).size.width,
-//   height: 110,
-//   decoration: BoxDecoration(
-//       color: Color(0xfff2f2f2),
-//       borderRadius: BorderRadius.circular(10)
-//   ),
-//   child: Row(
-//     children: [
-//       Padding(
-//         padding: const EdgeInsets.all(10.0),
-//         child: Container(
-//           height: 60,
-//           width: 60,
-//           decoration: BoxDecoration(
-//
-//             borderRadius: BorderRadius.circular(10),
-//
-//             image:DecorationImage(
-//                 fit: BoxFit.cover,
-//                 image:AssetImage('assets/images/HNV.png',)
-//             ),
-//
-//           ),
-//         ),
-//       ),
-//       Padding(
-//         padding: const EdgeInsets.only(top:20.0),
-//         child: SizedBox(
-//           width: 180,
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Row(
-//                 mainAxisAlignment: MainAxisAlignment.start,
-//                 children: [
-//                   Container(
-//                     height: 20,
-//                     width: 20,
-//                     decoration: BoxDecoration(
-//                       borderRadius: BorderRadius.circular(10),
-//                       image:DecorationImage(
-//                         image: AssetImage('assets/images/Non Vegetarian Logo.png'),
-//                       ),
-//
-//                     ),
-//
-//                   ),
-//                   Text(
-//                     " Healthy Non Veg", style: TextStyle(fontSize: 16,
-//                       fontWeight: FontWeight.w600),),],
-//               ),
-//               Text('See today\'s menu for item \ndetails',style: TextStyle(fontSize: 12),)
-//               ,
-//               Text('₹ 399.00',style: TextStyle(fontSize: 12,color: Colors.black),)
-//
-//
-//               //Text(result2,style: TextStyle(color: Colors.white,fontSize: 16, fontWeight: FontWeight.w600),)//will be updated according to date
-//             ],
-//           ),
-//         ),
-//       ),
-//
-//       p4Quantity==0? Padding(
-//         padding: const EdgeInsets.only(top: 55,left: 15),
-//         child: GestureDetector(
-//           onTap: (){
-//             setState(() {
-//               p4Quantity++;
-//             });
-//
-//
-//           },
-//           child: Container(
-//             height: 25,
-//             width: 70,
-//             decoration: BoxDecoration(
-//
-//                 color: Color(0xffEb4749),
-//                 borderRadius: BorderRadius.circular(10)
-//             ),
-//             child: Center(child: Text('Add',style: TextStyle(fontSize: 12,color: Colors.white),)),
-//           ),
-//         ),
-//       ):Padding(padding: const EdgeInsets.only(top: 55,left: 15), child: Row(
-//         children: [
-//           GestureDetector(
-//             onTap: (){
-//               setState(() {
-//                 p4Quantity--;
-//               });
-//
-//             },
-//             child: Container(
-//               height: 25,
-//               width: 20,
-//               decoration: BoxDecoration(color: Color(0xffEb4749),
-//                   borderRadius: BorderRadiusDirectional.only(topStart: Radius.circular(10),bottomStart: Radius.circular(10),
-//                   )
-//               ),
-//               child: Center(
-//                 child: Text('-',style: TextStyle(fontSize: 12,color: Colors.white),),
-//               ),
-//
-//             ),
-//           ),
-//           Container(
-//             height: 25,
-//             width: 30,
-//             color: Colors.white,
-//             child: Center(
-//               child: Text('$p4Quantity',style: TextStyle(fontSize: 12,color: Color(0xffeb4749)),),
-//             ),
-//
-//           ),
-//           GestureDetector(
-//             onTap: (){
-//               setState(() {
-//                 p4Quantity++;
-//               });
-//
-//             },
-//             child: Container(
-//               height: 25,
-//               width: 20,
-//               decoration: BoxDecoration(color: Color(0xffEb4749),
-//                   borderRadius: BorderRadiusDirectional.only(topEnd: Radius.circular(10),bottomEnd: Radius.circular(10),
-//                   )
-//               ),
-//               child: Center(
-//                 child: Text('+',style: TextStyle(fontSize: 12,color: Colors.white),),
-//               ),
-//
-//             ),
-//           ),
-//         ],
-//       ),)
-//
-//     ],
-//   ),
-//
-// ),

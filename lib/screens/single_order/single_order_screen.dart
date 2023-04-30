@@ -6,6 +6,7 @@ import 'package:tiffin/enums.dart';
 import 'package:tiffin/utils/dimensions.dart';
 import 'package:tiffin/widgets/AppBarWidget.dart';
 
+import '../../widgets/screen_heading.dart';
 import '../single_order/components/body.dart';
 
 class SingleOrderScreen extends StatefulWidget {
@@ -20,11 +21,11 @@ class _SingleOrderScreenState extends State<SingleOrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavigationDrawerWidget(),
+      resizeToAvoidBottomInset: false,
+      //drawer: NavigationDrawerWidget(),
       appBar:PreferredSize(
-        preferredSize:Size.fromHeight(Dimensions.height50),
-        child: AppBarWidget(),
-      ),
+          preferredSize: Size.fromHeight(Dimensions.appBarPrefferedHeight),
+          child: AppBarWidget(text:'Single Order Plans')),
       body: Body(),
       //bottomNavigationBar: CustomBottomNavBar(selectedMenu:MenuState.home),
       //bottomNavigationBar:

@@ -7,7 +7,7 @@ ThemeData theme(){
   return ThemeData(
     scaffoldBackgroundColor: Colors.white,
     //primarySwatch: Colors.red,
-    fontFamily: "SansPro",
+    //fontFamily: "SansPro",
     appBarTheme: appBarTheme(),
     textTheme: themeText(),
     inputDecorationTheme: inputDecorationTheme(),
@@ -45,17 +45,17 @@ TextTheme themeText() {
 
 AppBarTheme appBarTheme() {
   return AppBarTheme(
-    color: Colors.white,
+    color: Color(0xFFF5F5F5),
     elevation: 0,
     brightness: Brightness.light,
     iconTheme: IconThemeData(
-      color: Colors.black,),
-    textTheme: TextTheme(
-      headline1: TextStyle(
-        color: Color(0xFF888888),
-        fontSize: 18,
-      ),
-    ),
+      color: kBlackColor,),
+    // textTheme: TextTheme(
+    //   headline1: TextStyle(
+    //     color: Color(0xFF888888),
+    //     fontSize: 18,
+    //   ),
+    // ),
   );
 }
 
